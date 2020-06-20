@@ -31,36 +31,78 @@ params = Params(l=0.3, delta_t=0.25, h=0.5)
 
 
 def v(u):
+    """
+    Getter para a variável v a partir de u. Não extritamente necessário,
+    mas serve para conferir bug e mudar o formato da entrada com facilidade
+    :param u: vetor das variáveis de comando
+    :return: v
+    """
     assert u.shape == (2, 1)
     return u[0, 0]
 
 
 def phi(u):
+    """
+    Getter para a variável phi a partir de u. Não extritamente necessário,
+    mas serve para conferir bug e mudar o formato da entrada com facilidade
+    :param u: vetor das variáveis de comando
+    :return: phi
+    """
     assert u.shape == (2, 1)
     return u[1, 0]
 
 
 def x(mi):
+    """
+    Getter para a variável x a partir de mi. Não extritamente necessário,
+    mas serve para conferir bug e mudar o formato da entrada com facilidade
+    :param mi: vetor de observação
+    :return: x
+    """
     assert mi.shape == (5, 1)
     return mi[0, 0]
 
 
 def y(mi):
+    """
+    Getter para a variável y a partir de mi. Não extritamente necessário,
+    mas serve para conferir bug e mudar o formato da entrada com facilidade
+    :param mi: vetor de observação
+    :return: y
+    """
     assert mi.shape == (5, 1)
     return mi[1, 0]
 
 
 def theta(mi):
+    """
+    Getter para a variável theta a partir de mi. Não extritamente necessário,
+    mas serve para conferir bug e mudar o formato da entrada com facilidade
+    :param mi: vetor de observação
+    :return: theta
+    """
     assert mi.shape == (5, 1)
     return mi[2, 0]
 
 
 def fx(mi):
+    """
+    Getter para a variável fx a partir de mi. Não extritamente necessário,
+    mas serve para conferir bug e mudar o formato da entrada com facilidade
+    :param mi:
+    :return:
+    """
     assert mi.shape == (5, 1)
     return mi[3, 0]
 
 
 def fy(mi):
+    """
+    Getter para a variável fy a partir de mi. Não extritamente necessário,
+    mas serve para conferir bug e mudar o formato da entrada com facilidade
+    :param mi:
+    :return:
+    """
     assert mi.shape == (5, 1)
     return mi[4, 0]
 
@@ -126,7 +168,11 @@ def F(mi, u):
             ]
         ).reshape((-1, 1))
 
-    return mi + F_delta
+    mi_novo = mi + F_delta
+
+    assert mi_novo.shape == (5, 1)
+
+    return mi_novo
 
 
 def A(mi, u):
@@ -162,6 +208,8 @@ def A(mi, u):
             [0, 0, 0, 0, 1],
         ]
     )
+
+    assert A.shape == (5, 5)
 
     return A
 
@@ -204,6 +252,8 @@ def R(mi, u):
         ]
     )
 
+    assert R.shape == (5, 5)
+
     return R
 
 
@@ -231,6 +281,8 @@ def C(mi):
         ]
     )
 
+    assert C.shape == (3, 5)
+
     return C
 
 
@@ -249,6 +301,8 @@ def Q(mi):
 
     Q = np.array([[s_rho2, 0, 0], [0, s_f2, 0], [0, 0, s_e2]])
 
+    assert Q.shape == (3, 3)
+
     return Q
 
 
@@ -263,6 +317,9 @@ def K(Sigma, C, Q):
     K = Sigma.dot(C.transpose()).dot(
         np.linalg.inv((C.dot(Sigma).dot(C.transpose()) + Q))
     )
+
+    assert K.shape == (5, 3)
+
     return K
 
 
@@ -285,6 +342,8 @@ def G(mi):
             [-sin(theta_) * fx_ - cos(theta_) * fy_],
         ]
     )
+
+    assert G.shape == (3, 1)
 
     return G
 
