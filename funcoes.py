@@ -152,7 +152,7 @@ def F(mi, u):
             [
                 r_ * (cos(theta_) * sin(gama_) - sin(theta_) * (1 - cos(gama_))),
                 r_ * (sin(theta_) * sin(gama_) + cos(theta_) * (1 - cos(gama_))),
-                phi_,
+                gama_,
                 0,
                 0,
             ]
@@ -390,8 +390,8 @@ def GraficoXY(matriz_estados, titulo):
     plt.plot(X, Y)
     plt.xlabel("Posição em X")
     plt.ylabel("Posição em Y")
-    plt.xlim([-max_, max_])
-    plt.ylim([-max_, max_])
+    # plt.xlim([-max_, max_])
+    # plt.ylim([-max_, max_])
     plt.title(titulo)
     plt.show()
 
